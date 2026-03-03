@@ -1,11 +1,13 @@
 import axios from 'axios'
 import type { TripFormData, TripPlanResponse } from '@/types'
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000'
+// 使用空字符串作为 base URL，让请求走 Vite dev server 的 /api 代理
+// 这样可以绕过系统代理（如 Clash），由 Vite 服务端转发到后端
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || ''
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 120000, // 2分钟超时
+  timeout: 0, // 不限制超时
   headers: {
     'Content-Type': 'application/json'
   }
