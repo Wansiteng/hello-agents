@@ -38,11 +38,11 @@ class Settings(BaseSettings):
     unsplash_access_key: str = ""
     unsplash_secret_key: str = ""
 
-    # LLM配置 - 使用本地 MLX 模型服务器
-    # 需先运行 start_mlx_server.sh 启动本地服务
-    openai_api_key: str = "mlx-local"
-    openai_base_url: str = "http://127.0.0.1:8080/v1"
-    openai_model: str = "mlx-community/Qwen2.5-7B-Instruct-4bit"
+    # LLM配置 - 使用本地 Ollama 服务（Metal 加速）
+    # 需先启动 Ollama App，并确保已执行 ollama pull qwen2.5:32b
+    openai_api_key: str = "ollama"
+    openai_base_url: str = "http://127.0.0.1:11434/v1"
+    openai_model: str = "qwen2.5:32b"
 
     # 日志配置
     log_level: str = "INFO"
@@ -73,7 +73,7 @@ def validate_config():
     warnings = []
 
     if not settings.amap_api_key:
-        errors.append("AMAP_API_KEY未配置")
+        warnings.append("AMAP_API_KEY未配置，地图和POI相关功能将不可用")
 
     # HelloAgentsLLM会自动从LLM_API_KEY读取,不强制要求OPENAI_API_KEY
     llm_api_key = os.getenv("LLM_API_KEY") or os.getenv("OPENAI_API_KEY")

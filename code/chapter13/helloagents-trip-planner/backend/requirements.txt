@@ -1,10 +1,6 @@
 # HelloAgents框架
 hello-agents[protocols]>=0.2.4,<=0.2.9
 
-# 本地 MLX 模型推理（Apple Silicon）
-# 用于运行 mlx-community/Qwen3.5-9B-MLX-4bit 本地模型
-mlx-lm>=0.21.0
-
 # FastAPI和相关依赖
 fastapi>=0.115.0
 uvicorn[standard]>=0.32.0

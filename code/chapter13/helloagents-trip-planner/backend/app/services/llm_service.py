@@ -1,11 +1,11 @@
-"""LLM服务模块 - 使用本地 MLX 模型
+"""LLM服务模块 - 使用本地 Ollama 模型（Metal 加速）
 
-本模块通过 mlx_lm.server 启动的本地 OpenAI 兼容 API 访问本地模型，无需任何云端 API。
-运行前请先执行 start_mlx_server.sh 启动本地服务器。
+本模块通过 Ollama 提供的 OpenAI 兼容 API 访问本地模型，无需任何云端 API。
+运行前请确保 Ollama App 已启动，且已执行：ollama pull qwen2.5:32b
 
 本地服务器信息:
-  模型: mlx-community/Qwen2.5-7B-Instruct-4bit  (~4GB, Metal GPU 加速)
-  接口: http://127.0.0.1:8080/v1  (OpenAI 兼容格式)
+  模型: qwen2.5:32b  (~20GB, Q4_K_M 量化，Metal GPU 加速)
+  接口: http://127.0.0.1:11434/v1  (OpenAI 兼容格式)
 """
 
 from hello_agents import HelloAgentsLLM
@@ -41,7 +41,7 @@ def get_llm() -> HelloAgentsLLM:
             timeout=3600,  # 设为1小时，避免默认60秒超时
         )
 
-        print(f"✅ LLM服务初始化成功（本地 MLX 模型）")
+        print(f"✅ LLM服务初始化成功（本地 Ollama 模型，Metal 加速）")
         print(f"   服务地址: {settings.openai_base_url}")
         print(f"   模型: {settings.openai_model}")
 
